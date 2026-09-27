@@ -38,80 +38,17 @@ USE rental_app;
 
 ## 2️⃣ KHỞI ĐỘNG BACKEND
 
-### Bước 1: Vào thư mục backend
-
-```powershell
 cd .\wrstudios-backend\
-```
-
-### Bước 2: Cài dependencies
-
-```powershell
 npm install
-```
-
-### Bước 3: Kiểm tra/cập nhật `.env`
-
-```bash
-# File: .env
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_USER=root
-DB_PASSWORD=123456789
-DB_NAME=rental_app
-PORT=4000
-JWT_SECRET=your-secret-key-change-in-production
-```
-
-### Bước 4: Chạy server
-
-```powershell
-npm run dev
-# hoặc: node index.js
-```
-
-**✅ Nếu thấy:**
-
-```
-✅ MySQL Connected Successfully!
-🚀 Server running at http://localhost:4000
-```
-
-Backend đã chạy thành công!
-
----
+npm run dev # hoặc: node index.js
 
 ## 3️⃣ KHỞI ĐỘNG FRONTEND
 
-### Bước 1: Mở terminal mới (không đóng terminal backend)
-
 ```powershell
 cd .\wrstudios-frontend\user-app\
-```
-
-### Bước 2: Cài dependencies
-
-```powershell
 npm install
-```
-
-### Bước 3: Chạy dev server
-
-```powershell
 npm start
 ```
-
-**✅ Nếu thấy:**
-
-```
-Compiled successfully!
-On Your Network: http://192.168.x.x:3000
-```
-
-Frontend đã chạy tại `http://localhost:3000`
-
----
-
 ## 4️⃣ TEST HỆ THỐNG
 
 ### Test 1: Đăng ký user mới
