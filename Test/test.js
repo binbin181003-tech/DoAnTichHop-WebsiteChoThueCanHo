@@ -1,6 +1,6 @@
 import { GoogleGenAI } from '@google/genai';
 // Dùng cho test con AI nó có chạy ko thôi, không tham gia vào chương trình. Có thể xóa đi nếu muốn.
-const ai = new GoogleGenAI({ apiKey: "AQ.Ab8RN6LPHy2wViQmRPWGZy40FScWU4PbUBpHwlt0u5QtWWudVw" });
+const ai = new GoogleGenAI({ apiKey: "" });
 
 async function run() {
   try {
