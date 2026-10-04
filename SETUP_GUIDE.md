@@ -22,11 +22,6 @@ Nhập password: `123456789`
 
 ```sql
 CREATE DATABASE IF NOT EXISTS rental_app CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-```
-
-### Bước 3: Chạy SQL Schema
-
-```sql
 USE rental_app;
 
 -- Copy toàn bộ SQL từ file bạn gửi và paste vào đây
@@ -39,6 +34,7 @@ USE rental_app;
 ## 2️⃣ KHỞI ĐỘNG BACKEND
 
 cd .\wrstudios-backend\
+npm install nodemailer
 npm install
 npm run dev # hoặc: node index.js
 
@@ -46,6 +42,7 @@ npm run dev # hoặc: node index.js
 
 ```powershell
 cd .\wrstudios-frontend\user-app\
+npm install mapbox-gl@3
 npm install
 npm start
 ```
