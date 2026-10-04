@@ -103,29 +103,8 @@ router.get('/:id', verifyToken, async (req, res) => {
 });
 
 // POST /api/users/register - Đăng ký user mới
-router.post('/register', async (req, res) => {
-  try {
-    const { name, email, phone, password } = req.body;
-    
-    // Check email tồn tại
-    const [existing] = await db.query('SELECT user_id FROM users WHERE email = ?', [email]);
-    if (existing.length > 0) {
-      return res.status(400).json({ message: 'Email already exists' });
-    }
-    
-    const user_id = `user_${Date.now()}`;
-    
-    // Trong thực tế cần hash password (dùng bcrypt)
-    await db.query(
-      `INSERT INTO users (user_id, name, email, phone, status, role, created_at) 
-       VALUES (?, ?, ?, ?, 'active', 'member', NOW())`,
-      [user_id, name, email, phone]
-    );
-    
-    res.status(201).json({ success: true, user_id });
-  } catch (error) {
-    res.status(500).json({ success: false, error: error.message });
-  }
+router.post('/register', (req, res) => {
+  res.status(410).json({ success: false, message: 'Vui lòng đăng ký qua /api/auth/register và xác thực email.' });
 });
 
 // PATCH /api/users/:id - Cập nhật thông tin user

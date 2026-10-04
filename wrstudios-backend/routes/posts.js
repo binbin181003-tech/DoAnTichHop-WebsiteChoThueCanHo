@@ -4,6 +4,8 @@ import db from '../config/database.js';
 import { verifyToken, isAdmin } from '../middleware/auth.js';
 import { generateListingTags } from '../services/ai-tags.js';
 
+import { parsePostLocation } from '../services/post-location.js';
+
 const router = express.Router();
 
 // Lấy tag bằng một truy vấn chung, tránh truy vấn riêng cho từng tin.
@@ -169,6 +171,10 @@ router.post('/', verifyToken, async (req, res) => {
       }
     }
 
+    let location;
+    try { location = post_type === 'listing' ? parsePostLocation(req.body) : { latitude: null, longitude: null }; }
+    catch (error) { return res.status(400).json({ success: false, message: error.message }); }
+
     // Chỉ tin đăng được AI gắn tag; title gốc không bị sửa.
     const tags = post_type === 'listing'
       ? await generateListingTags({ title, description, address, price, area, category, images })
@@ -179,8 +185,8 @@ router.post('/', verifyToken, async (req, res) => {
     await db.query(
       `INSERT INTO posts (
         post_id, title, description, address, price, area, 
-        category, post_type, user_id, status, created_at
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'approved', NOW())`,
+        category, post_type, user_id, latitude, longitude, status, created_at
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'approved', NOW())`,
       [
         post_id, 
         title,
@@ -190,7 +196,9 @@ router.post('/', verifyToken, async (req, res) => {
         area || null,
         post_type === 'listing' ? (category || 'studio') : null,
         post_type, 
-        user_id
+        user_id,
+        location.latitude,
+        location.longitude
       ]
     );
 

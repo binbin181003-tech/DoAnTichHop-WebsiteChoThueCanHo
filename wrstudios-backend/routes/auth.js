@@ -2,12 +2,15 @@
 import express from 'express';
 import jwt from 'jsonwebtoken';
 import db from '../config/database.js';
+import { requestRegistrationCode, requireRegistrationCode } from '../services/registration-verification.js';
 
 const router = express.Router();
 const SECRET_KEY = process.env.JWT_SECRET || 'change-me';
 
 // POST /api/auth/register
-router.post('/register', async (req, res) => {
+router.post('/register/send-code', requestRegistrationCode);
+
+router.post('/register', requireRegistrationCode, async (req, res) => {
   try {
     const { name, email, phone, password } = req.body;
 
@@ -60,7 +63,7 @@ router.post('/register', async (req, res) => {
     res.status(201).json({
       success: true,
       message: 'Đăng ký thành công!',
-      token: "...",
+      token,
       user: {
         user_id,
         name,
